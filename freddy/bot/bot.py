@@ -13,6 +13,7 @@ class Bot(commands.Bot):
         super().__init__(
             command_prefix=Config.PREFIX,
             case_insensitive=True,
+            strip_after_prefix=True,
             intents=Intents.all(),
             *args,
             **kwargs

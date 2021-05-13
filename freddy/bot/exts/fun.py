@@ -10,6 +10,8 @@ class Fun(commands.Cog):
     @commands.command(name="dog", aliases=["woof", "doggo"])
     @commands.guild_only()
     async def _dog(self, ctx: commands.Context) -> None:
+        """Displays a random dog image inside of an embed"""
+
         async with ctx.channel.typing():
             async with self.bot.session.get("https://dog.ceo/api/breeds/image/random") as res:
                 image = (await res.json())["message"]

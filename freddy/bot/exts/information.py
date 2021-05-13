@@ -12,6 +12,8 @@ class Information(commands.Cog):
     @commands.command(name="member", aliases=["memberinfo"])
     @commands.guild_only()
     async def _member(self, ctx: commands.Context, member: Member = None) -> None:
+        """Shows detailed information about a member"""
+
         if member is None:
             member = ctx.author
 
@@ -35,6 +37,8 @@ class Information(commands.Cog):
     @commands.command(name="server", aliases=["serverinfo"])
     @commands.guild_only()
     async def _server(self, ctx: commands.Context) -> None:
+        """Shows detailed information about the guild"""
+
         guild = ctx.guild
 
         embed = CleanEmbed(
@@ -61,6 +65,8 @@ class Information(commands.Cog):
     @commands.command(name="avatar")
     @commands.guild_only()
     async def _avatar(self, ctx: commands.Context, member: Member = None) -> None:
+        """Displays a members avatar inside of an embed"""
+
         if member is None:
             member = ctx.author
 
@@ -72,6 +78,14 @@ class Information(commands.Cog):
         )
 
         await ctx.send(embed=embed)
+
+    @commands.command(name="spotify")
+    @commands.guild_only()
+    async def _spotify(self, ctx: commands.Context, member: Member = None) -> None:
+        """Shows what a member is listening to on Spotify, if applicable"""
+
+        if member is None:
+            member = ctx.author
 
 
 def setup(bot):

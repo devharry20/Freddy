@@ -6,7 +6,7 @@ Requirements:
 - Clone or download the repository https://github.com/devharry20/Freddy
 - Create a `.env` file and fill it with the following contents
 
-```python
+```
 TOKEN='your bot token'
 ```
 

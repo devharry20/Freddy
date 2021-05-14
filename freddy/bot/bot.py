@@ -4,6 +4,7 @@ from discord.ext import commands
 from logging import getLogger, StreamHandler, INFO
 from aiohttp import ClientSession
 from ..utils.config import Config
+from .exts.help import HelpCommand
 
 import sys
 
@@ -18,6 +19,8 @@ class Bot(commands.Bot):
             *args,
             **kwargs
         )
+
+        self.help_command = HelpCommand()
 
         self.logger = getLogger("Freddy")
         self.logger.addHandler(StreamHandler(sys.stdout))

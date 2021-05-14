@@ -1,6 +1,8 @@
 from discord import Member, Spotify
 from discord.ext import commands
 
+from typing import Union
+
 from ...utils.constants import GUILD_REGIONS, GUILD_VERIFICATION_LEVELS
 from ...utils.helpers import CleanEmbed
 from ...utils.config import Config
@@ -82,13 +84,13 @@ class Information(commands.Cog):
 
     @commands.command(name="spotify")
     @commands.guild_only()
-    async def _spotify(self, ctx: commands.Context, member: Member = None) -> None:
+    async def _spotify(self, ctx: commands.Context, member: Member = None) -> Union[commands.Context, None]:
         """Shows what a member is listening to on Spotify, if applicable"""
 
         if member is None:
             member = ctx.author
 
-        if member.activities:
+        if member.activities is not None:
             for activity in member.activities:
                 if isinstance(activity, Spotify):
                     spotify_emoji = self.bot.get_emoji(Config.SPOTIFY_EMOJI_ID)
@@ -100,7 +102,9 @@ class Information(commands.Cog):
                                     f"[{spotify_emoji} Listen to {activity.title} on Spotify](https://open.spotify.com/track/{activity.track_id})"
                     )
 
-                    await ctx.send(embed=embed)
+                    return await ctx.send(embed=embed)
+
+        await ctx.send(f"{member.name}#{member.discriminator} isn't currently listening to Spotify.")
 
 
 def setup(bot):

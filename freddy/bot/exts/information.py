@@ -1,8 +1,9 @@
-from discord import Member
+from discord import Member, Spotify
 from discord.ext import commands
 
 from ...utils.constants import GUILD_REGIONS, GUILD_VERIFICATION_LEVELS
 from ...utils.helpers import CleanEmbed
+from ...utils.config import Config
 
 
 class Information(commands.Cog):
@@ -86,6 +87,20 @@ class Information(commands.Cog):
 
         if member is None:
             member = ctx.author
+
+        if member.activities:
+            for activity in member.activities:
+                if isinstance(activity, Spotify):
+                    spotify_emoji = self.bot.get_emoji(Config.SPOTIFY_EMOJI_ID)
+
+                    embed = CleanEmbed(
+                        author_text=f"{member.name}#{member.discriminator} is listening to Spotify",
+                        thumbnail_url=activity.album_cover_url,
+                        description=f"{activity.title} on {activity.album} \n**By** {', '.join(activity.artists)} \n\n"
+                                    f"[{spotify_emoji} Listen to {activity.title} on Spotify](https://open.spotify.com/track/{activity.track_id})"
+                    )
+
+                    await ctx.send(embed=embed)
 
 
 def setup(bot):

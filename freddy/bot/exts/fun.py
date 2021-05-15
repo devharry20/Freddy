@@ -7,7 +7,7 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dog", aliases=["woof", "doggo"])
+    @commands.command(name="dog", aliases=["woof", "doggo"], description="Displays a random dog image inside of an embed")
     @commands.guild_only()
     async def _dog(self, ctx: commands.Context) -> None:
         """Displays a random dog image inside of an embed"""

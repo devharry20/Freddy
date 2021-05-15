@@ -10,7 +10,7 @@ import sys
 
 
 class Bot(commands.Bot):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(
             command_prefix=Config.PREFIX,
             case_insensitive=True,
@@ -29,6 +29,8 @@ class Bot(commands.Bot):
         self.session = ClientSession()
 
     def load_extensions(self, *exts: str) -> None:
+        """Loads bot extensions"""
+
         for ext in exts:
             try:
                 self.load_extension(f'freddy.bot.exts.{ext}')

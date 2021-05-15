@@ -5,6 +5,7 @@ from discord.utils import escape_markdown
 from typing import Union
 
 from ...utils.helpers import CleanEmbed
+from ...utils.converters import BannedUserConverter
 from ...utils.config import Config
 
 
@@ -40,6 +41,29 @@ class Moderation(commands.Cog):
         check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
 
         embed = CleanEmbed(description=f"{check_emoiji} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    @commands.bot_has_guild_permissions(administrator=True)
+    async def unban(self, ctx: commands.Context, user: Union[str, int] = None) -> None:
+        if user is None:
+            return await ctx.send("You must specify a user to unban.")
+
+        converter = BannedUserConverter()
+
+        embed = CleanEmbed()
+
+        if (banned_user := await converter.convert(ctx, user)) is not None:
+            await ctx.guild.unban(banned_user)
+
+            check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
+            embed.description = f"{check_emoiji} **Unbanned** {escape_markdown(banned_user.name)}#{banned_user.discriminator} ({banned_user.mention})"
+        else:
+            embed.description = f":x: Could not find a ban entry for: {escape_markdown(str(user))}"
+            embed.colour = Config.ERROR_COLOUR
+
         await ctx.send(embed=embed)
 
 

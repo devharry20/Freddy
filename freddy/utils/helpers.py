@@ -1,6 +1,6 @@
 from discord import Embed
 
-from datetime import datetime
+from ..utils.config import Config
 
 
 class CleanEmbed(Embed):
@@ -9,7 +9,7 @@ class CleanEmbed(Embed):
 
         self.title = kwargs.get('title') or self.Empty
         self.description = kwargs.get('description') or self.Empty
-        self.colour = kwargs.get('colour') or 0xF2C572
+        self.colour = kwargs.get('colour') or Config.DEFAULT_COLOUR
 
         if kwargs.get('author_text') is not None:
             self.set_author(name=kwargs.get('author_text') or self.Empty,

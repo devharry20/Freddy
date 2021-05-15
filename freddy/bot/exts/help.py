@@ -4,6 +4,13 @@ from ...utils.helpers import CleanEmbed
 
 
 class HelpCommand(commands.HelpCommand):
+    def get_command_usage(self, command: commands.Command) -> str:
+        """Returns a string containing the command usage and any parameters it takes"""
+
+        params = " ".join(f"[{c}]" for c in command.clean_params.keys()) if len(command.clean_params.keys()) > 0 else ""
+
+        return f"`f!{command.name}`" if not params else f"`f!{command.name} {params}`"
+
     async def send_bot_help(self, mapping) -> None:
         """Sends a help embed displaying all of Freddy's commands"""
 
@@ -20,9 +27,20 @@ class HelpCommand(commands.HelpCommand):
 
                 cmds = []
                 for cmd in filtered_commands:
-                    cmd_params = " ".join(f"[{c}]" for c in cmd.clean_params.keys()) if len(cmd.clean_params.keys()) > 0 else ""
-                    cmds.append(f"`f!{cmd.name}`" if not cmd_params else f"`f!{cmd.name} {cmd_params}`")
+                    cmds.append(self.get_command_usage(cmd))
 
                 embed.add_field(name=cog_name, value="\n".join(cmds), inline=False)
 
         await self.get_destination().send(embed=embed)
+
+    async def send_command_help(self, command: commands.Command) -> None:
+        embed = CleanEmbed(
+            author_text=f"Freddy Help: {command.name}",
+            description=command.description,
+            fields=[
+                {"name": "Expected Usage", "value": self.get_command_usage(command), "inline": True}
+            ]
+        )
+
+        await self.get_destination().send(embed=embed)
+

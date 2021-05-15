@@ -9,6 +9,7 @@ Requirements:
 ```
 TOKEN='your bot token'
 ```
+You will also need to edit [config.py](https://github.com/devharry20/Freddy/blob/master/freddy/utils/config.py) and change some of the settings  
 
 ### Running the project
 #### Using docker (recommended)

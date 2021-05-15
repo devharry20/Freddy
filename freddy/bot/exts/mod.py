@@ -27,6 +27,21 @@ class Moderation(commands.Cog):
         embed = CleanEmbed(description=f"{check_emoiji} **Kicked** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
+    @commands.command(name="ban")
+    @commands.guild_only()
+    @commands.has_guild_permissions(ban_members=True)
+    @commands.bot_has_guild_permissions(ban_members=True)
+    async def _ban(self, ctx: commands.Context, member: Member = None, *, reason: str = "No reason specified") -> Union[commands.Context, None]:
+        if member is None:
+            return await ctx.send("You must specify a member to ban.")
+
+        await member.ban(reason=reason)
+
+        check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
+
+        embed = CleanEmbed(description=f"{check_emoiji} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

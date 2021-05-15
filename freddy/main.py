@@ -11,7 +11,8 @@ def main():
 
     bot.load_extensions(
         'information',
-        'fun'
+        'fun',
+        'mod'
     )
 
     bot.run(os.environ.get('TOKEN'))

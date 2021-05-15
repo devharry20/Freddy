@@ -13,11 +13,13 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="kick")
+    @commands.command(name="kick", description="Kicks the specified member from the guild")
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
     async def _kick(self, ctx: commands.Context, member: Member = None, *, reason: str = "No reason specified") -> Union[commands.Context, None]:
+        """Kicks the specified member from the guild"""
+
         if member is None:
             return await ctx.send("You must specify a member to kick.")
 
@@ -28,11 +30,13 @@ class Moderation(commands.Cog):
         embed = CleanEmbed(description=f"{check_emoiji} **Kicked** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
-    @commands.command(name="ban")
+    @commands.command(name="ban", description="Bans the specified member from the guild")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
     async def _ban(self, ctx: commands.Context, member: Member = None, *, reason: str = "No reason specified") -> Union[commands.Context, None]:
+        """Bans the specified member from the guild"""
+
         if member is None:
             return await ctx.send("You must specify a member to ban.")
 
@@ -43,11 +47,13 @@ class Moderation(commands.Cog):
         embed = CleanEmbed(description=f"{check_emoiji} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(name="unban", description="Unbans the specified user from the guild")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.bot_has_guild_permissions(administrator=True)
-    async def unban(self, ctx: commands.Context, user: Union[str, int] = None) -> None:
+    async def _unban(self, ctx: commands.Context, user: Union[str, int] = None) -> None:
+        """Unbans the specified user from the guild"""
+
         if user is None:
             return await ctx.send("You must specify a user to unban.")
 

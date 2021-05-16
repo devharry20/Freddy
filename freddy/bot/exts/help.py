@@ -36,7 +36,7 @@ class HelpCommand(commands.HelpCommand):
     async def send_command_help(self, command: commands.Command) -> None:
         embed = CleanEmbed(
             author_text=f"Freddy Help: {command.name}",
-            description=command.description,
+            description=command.callback.__doc__,
             fields=[
                 {"name": "Expected Usage", "value": self.get_command_usage(command), "inline": True}
             ]

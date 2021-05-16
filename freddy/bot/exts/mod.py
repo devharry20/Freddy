@@ -3,8 +3,9 @@ from discord.ext import commands
 from discord.utils import escape_markdown
 
 from typing import Union
+from datetime import timedelta
 
-from ...utils.helpers import CleanEmbed
+from ...utils.helpers import CleanEmbed, TimeConverters
 from ...utils.converters import BannedUserConverter
 from ...utils.config import Config
 
@@ -64,6 +65,30 @@ class Moderation(commands.Cog):
         else:
             embed.description = f":x: Could not find a ban entry for: {escape_markdown(str(user))}"
             embed.colour = Config.ERROR_COLOUR
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name="slowmode")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
+    async def _slowmode(self, ctx: commands.Context, delay: int = None) -> None:
+        """Set the slowmode delay in seconds for the current text channel"""
+
+        embed = CleanEmbed()
+
+        if delay is None:
+            if ctx.channel.slowmode_delay == 0:
+                embed.description = f"{Config.INFO_EMOJI_STR} There is currently no slowmode delay for {ctx.channel.mention}"
+            else:
+                embed.description = f"{Config.INFO_EMOJI_STR} The current slowmode delay for {ctx.channel.mention} is {TimeConverters.seconds_to_humanised(ctx.channel.slowmode_delay)}"
+        else:
+            if delay < 0 or delay > 21600:
+                embed.description = f":x: The slowmode delay for {ctx.channel.mention} must be between 0 and 21,600 seconds"
+                embed.colour = Config.ERROR_COLOUR
+            else:
+                await ctx.channel.edit(slowmode_delay=delay)
+                embed.description = f"{Config.CHECK_EMOJI_STR} The slowmode delay for {ctx.channel.mention} has been set to {TimeConverters.seconds_to_humanised(delay)}"
 
         await ctx.send(embed=embed)
 

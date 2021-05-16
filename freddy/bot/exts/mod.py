@@ -13,7 +13,7 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="kick", description="Kicks the specified member from the guild")
+    @commands.command(name="kick")
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
@@ -30,7 +30,7 @@ class Moderation(commands.Cog):
         embed = CleanEmbed(description=f"{check_emoiji} **Kicked** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
-    @commands.command(name="ban", description="Bans the specified member from the guild")
+    @commands.command(name="ban")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
@@ -47,7 +47,7 @@ class Moderation(commands.Cog):
         embed = CleanEmbed(description=f"{check_emoiji} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
-    @commands.command(name="unban", description="Unbans the specified user from the guild")
+    @commands.command(name="unban")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.bot_has_guild_permissions(administrator=True)

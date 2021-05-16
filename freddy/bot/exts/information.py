@@ -12,7 +12,7 @@ class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="member", aliases=["memberinfo"], description="Shows detailed information about a member")
+    @commands.command(name="member", aliases=["memberinfo"])
     @commands.guild_only()
     async def _member(self, ctx: commands.Context, member: Member = None) -> None:
         """Shows detailed information about a member"""
@@ -37,7 +37,7 @@ class Information(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="server", aliases=["serverinfo"], description="Shows detailed information about the guild")
+    @commands.command(name="server", aliases=["serverinfo"])
     @commands.guild_only()
     async def _server(self, ctx: commands.Context) -> None:
         """Shows detailed information about the guild"""
@@ -65,7 +65,7 @@ class Information(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="avatar", description="Displays a members avatar inside of an embed")
+    @commands.command(name="avatar")
     @commands.guild_only()
     async def _avatar(self, ctx: commands.Context, member: Member = None) -> None:
         """Displays a members avatar inside of an embed"""
@@ -82,7 +82,7 @@ class Information(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="spotify", description="Shows what a member is listening to on Spotify, if applicable")
+    @commands.command(name="spotify")
     @commands.guild_only()
     async def _spotify(self, ctx: commands.Context, member: Member = None) -> Union[commands.Context, None]:
         """Shows what a member is listening to on Spotify, if applicable"""

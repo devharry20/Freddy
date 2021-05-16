@@ -25,9 +25,7 @@ class Moderation(commands.Cog):
 
         await member.kick(reason=reason)
 
-        check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
-
-        embed = CleanEmbed(description=f"{check_emoiji} **Kicked** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
+        embed = CleanEmbed(description=f"{Config.CHECK_EMOJI_STR} **Kicked** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
     @commands.command(name="ban")
@@ -42,9 +40,7 @@ class Moderation(commands.Cog):
 
         await member.ban(reason=reason)
 
-        check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
-
-        embed = CleanEmbed(description=f"{check_emoiji} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
+        embed = CleanEmbed(description=f"{Config.CHECK_EMOJI_STR} **Banned** {escape_markdown(member.name)}#{member.discriminator} ({member.mention})")
         await ctx.send(embed=embed)
 
     @commands.command(name="unban")
@@ -64,8 +60,7 @@ class Moderation(commands.Cog):
         if (banned_user := await converter.convert(ctx, user)) is not None:
             await ctx.guild.unban(banned_user)
 
-            check_emoiji = self.bot.get_emoji(Config.CHECK_EMOJI_ID)
-            embed.description = f"{check_emoiji} **Unbanned** {escape_markdown(banned_user.name)}#{banned_user.discriminator} ({banned_user.mention})"
+            embed.description = f"{Config.CHECK_EMOJI_STR} **Unbanned** {escape_markdown(banned_user.name)}#{banned_user.discriminator} ({banned_user.mention})"
         else:
             embed.description = f":x: Could not find a ban entry for: {escape_markdown(str(user))}"
             embed.colour = Config.ERROR_COLOUR

@@ -17,7 +17,7 @@ class HelpCommand(commands.HelpCommand):
 
         embed = CleanEmbed(
             author_text="Freddy Help",
-            description=f"<:information:{Config.INFO_EMOJI_ID}> Below are the categorised commands that I offer! \n"
+            description=f"{Config.INFO_EMOJI_STR} Below are the categorised commands that I offer! \n"
                         "You can use `f!help <command>` to view specific commands.",
             thumbnail_url="https://cdn.discordapp.com/avatars/842450701920895036/5acd4c6d73cf152f25d242f89edc2288.png?size=256"
         )

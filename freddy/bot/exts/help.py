@@ -34,6 +34,8 @@ class HelpCommand(commands.HelpCommand):
         await self.get_destination().send(embed=embed)
 
     async def send_command_help(self, command: commands.Command) -> None:
+        """Sends a help embed displaying command specific information"""
+
         embed = CleanEmbed(
             author_text=f"Freddy Help: {command.name}",
             description=command.callback.__doc__,
@@ -43,4 +45,9 @@ class HelpCommand(commands.HelpCommand):
         )
 
         await self.get_destination().send(embed=embed)
+
+    async def send_error_message(self, error: str) -> None:
+        """Returns immediately to prevent any error message being sent"""
+
+        return
 

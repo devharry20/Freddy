@@ -2,6 +2,8 @@ from discord import Embed
 
 from ..utils.config import Config
 
+import time
+
 
 class CleanEmbed(Embed):
     def __init__(self, **kwargs):
@@ -27,3 +29,25 @@ class CleanEmbed(Embed):
                     field['inline'] = False
 
                 self.add_field(**field)
+
+
+class TimeConverters:
+    @staticmethod
+    def seconds_to_humanised(delay: int) -> str:
+        """A hacky function to convert seconds to a human readable format"""
+
+        ty_res = time.gmtime(delay)
+        hours = time.strftime("%H", ty_res)
+        minutes = time.strftime("%M", ty_res)
+        seconds = time.strftime("%S", ty_res)
+
+        humanised = ""
+
+        if int(hours) > 0:
+            humanised += f"{hours} hour " if int(hours) == 1 else f"{hours} hours "
+        if int(minutes) > 0:
+            humanised += f"{minutes} minute " if int(minutes) == 1 else f"{minutes} minutes "
+        if int(seconds) > 0:
+            humanised += f"{seconds} second " if int(seconds) == 1 else f"{seconds} seconds "
+
+        return f"{humanised.rstrip()}."

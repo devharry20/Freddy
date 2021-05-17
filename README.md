@@ -1,5 +1,5 @@
 ## Freddy
-Freddy is a multi-purpose discord bot, originally created in 2018. Made with Python
+Freddy is a multi-purpose discord bot, originally created in 2018. Made with Python  
 
 ### Installation
 Requirements:
@@ -29,4 +29,6 @@ $ poetry install
 Run the bot
 ```
 $ poetry run freddy
-```
+```  
+  
+  ![Help Command](https://i.gyazo.com/78fd070e14f090cd049ff6ef6b9161b9.png)

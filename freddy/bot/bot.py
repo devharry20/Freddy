@@ -2,7 +2,9 @@ from discord import Intents
 from discord.ext import commands
 
 from logging import getLogger, StreamHandler, INFO
+from datetime import datetime
 from aiohttp import ClientSession
+
 from ..utils.config import Config
 from .exts.help import HelpCommand
 
@@ -25,6 +27,8 @@ class Bot(commands.Bot):
         self.logger = getLogger("Freddy")
         self.logger.addHandler(StreamHandler(sys.stdout))
         self.logger.setLevel(INFO)
+
+        self.uptime = datetime.utcnow()
 
         self.session = ClientSession()
 

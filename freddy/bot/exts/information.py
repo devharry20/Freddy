@@ -2,15 +2,32 @@ from discord import Member, Spotify
 from discord.ext import commands
 
 from typing import Union
+from datetime import datetime
 
 from ...utils.constants import GUILD_REGIONS, GUILD_VERIFICATION_LEVELS
-from ...utils.helpers import CleanEmbed
+from ...utils.helpers import CleanEmbed, TimeConverters
 from ...utils.config import Config
 
 
 class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command(name="status")
+    @commands.guild_only()
+    async def _status(self, ctx: commands.Context) -> None:
+        embed = CleanEmbed(
+            author_text="Freddy statistics",
+            thumbnail_url=self.bot.user.avatar_url,
+            fields=[
+                {"name": "Total Servers", "value": len(self.bot.guilds), "inline": True},
+                {"name": "Total Users", "value": len(self.bot.users), "inline": True},
+                {"name": "Total Channels", "value": len([c.channels for c in self.bot.guilds]), "inline": True},
+                {"name": "Uptime", "value": TimeConverters.seconds_to_humanised((datetime.utcnow() - self.bot.uptime).total_seconds())}
+            ]
+        )
+
+        await ctx.send(embed=embed)
 
     @commands.command(name="member", aliases=["memberinfo"])
     @commands.guild_only()

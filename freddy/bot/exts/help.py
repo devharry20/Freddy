@@ -34,6 +34,8 @@ class HelpCommand(commands.HelpCommand):
 
                 embed.add_field(name=cog_name, value="\n".join(cmds), inline=False)
 
+        embed.add_field(name="Additional", value=f"Support Server | Website | [GitHub Repository](https://github.com/devharry20/Freddy)")
+
         await self.get_destination().send(embed=embed)
 
     async def send_command_help(self, command: commands.Command) -> None:

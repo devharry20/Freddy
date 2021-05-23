@@ -31,4 +31,4 @@ Run the bot
 $ poetry run freddy
 ```  
 #### Current state of commands    
-![Help Command](https://i.gyazo.com/ca496c38bf3efd3503cb7dd70edad72f.png)
+![Help Command](https://i.gyazo.com/3f1288b84d515c3197870b0f1d11765d.png)

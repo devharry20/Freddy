@@ -29,6 +29,34 @@ class Information(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="botinfo")
+    @commands.guild_only()
+    async def botinfo(self, ctx: commands.Context) -> None:
+        """Shows information about Freddy"""
+
+        embed = CleanEmbed(
+            author_text="About Freddy",
+            description=f"Freddy is a powerful multi-purpose bot, developed and designed with ease of use in mind. "
+                        f"Created {(datetime.utcnow() - self.bot.user.created_at).days} days ago, he has been providing "
+                        f"value to many guilds for a long time.",
+            thumbnail_url=self.bot.user.avatar_url,
+            fields=[
+                {"name": "Commands", "value": f"{len(self.bot.commands)} public commands", "inline": True},
+                {"name": "Maintainment", "value": "Developed and designed by Harry", "inline": True},
+                {"name": "Invite Freddy", "value": "Invite here", "inline": True},
+                {"name": "Timeline", "value":
+                    "~~-~~**1**~~------~~**2**~~-------~~**3**~~------------------~~**4**~~-----------~~**5**~~-~~ \n\n"
+                    "**1** - " + self.bot.user.created_at.strftime("%B %Y") + " - Freddy was created \n"
+                    "**2** - November 2019 - Development was paused \n"
+                    "**3** - January 2020 - Development resumed and Freddy grew rapidly \n"
+                    "**4** - December 2020 - Freddy's development stopped \n"
+                    "**5** - May 2021 - In process of re-designing and bot verification"
+                 }
+            ]
+        )
+
+        await ctx.send(embed=embed)
+
     @commands.command(name="member", aliases=["memberinfo"])
     @commands.guild_only()
     async def _member(self, ctx: commands.Context, member: Member = None) -> None:

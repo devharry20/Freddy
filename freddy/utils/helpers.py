@@ -50,4 +50,4 @@ class TimeConverters:
         if int(seconds) > 0:
             humanised += f"{seconds} second " if int(seconds) == 1 else f"{seconds} seconds "
 
-        return f"{humanised.rstrip()}."
+        return humanised.rstrip()

@@ -1,9 +1,4 @@
 from .bot.bot import Bot
-from dotenv import load_dotenv
-
-import os
-
-load_dotenv()
 
 
 def main():
@@ -15,4 +10,4 @@ def main():
         'mod'
     )
 
-    bot.run(os.environ.get('TOKEN'))
+    bot.run()

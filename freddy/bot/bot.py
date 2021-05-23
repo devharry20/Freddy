@@ -7,8 +7,12 @@ from aiohttp import ClientSession
 
 from ..utils.config import Config
 from .exts.help import HelpCommand
+from dotenv import load_dotenv
 
 import sys
+import os
+
+load_dotenv()
 
 
 class Bot(commands.Bot):
@@ -29,7 +33,6 @@ class Bot(commands.Bot):
         self.logger.setLevel(INFO)
 
         self.uptime = datetime.utcnow()
-
         self.session = ClientSession()
 
     def load_extensions(self, *exts: str) -> None:
@@ -44,3 +47,6 @@ class Bot(commands.Bot):
 
     async def on_ready(self) -> None:
         self.logger.info('Freddy is online')
+
+    def run(self) -> None:
+        super().run(os.environ.get("TOKEN"))

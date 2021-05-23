@@ -24,6 +24,23 @@ class Fun(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command(name="cat", aliases=["meow"])
+    @commands.guild_only()
+    async def _cat(self, ctx: commands.Context) -> None:
+        """Displays a random cat image inside of an embed"""
+
+        async with ctx.channel.typing():
+            async with self.bot.session.get("https://aws.random.cat/meow") as res:
+                image = (await res.json())["file"]
+
+        embed = CleanEmbed(
+            author_url=image,
+            author_text="Here's a cat 🐱",
+            image_url=image,
+        )
+
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
